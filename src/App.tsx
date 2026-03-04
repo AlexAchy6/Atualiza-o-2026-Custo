@@ -50,6 +50,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [importStats, setImportStats] = useState<{total: number, imported: number} | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isConfirmingClear, setIsConfirmingClear] = useState(false);
   const [newExpense, setNewExpense] = useState<Partial<Expense>>({
     description: '',
     amount: 0,
@@ -370,18 +371,37 @@ export default function App() {
           </div>
           
           <div className="flex items-center gap-3">
-              <button 
-                onClick={() => {
-                  if (window.confirm('Tem certeza que deseja apagar todos os lançamentos?')) {
-                    setExpenses([]);
-                  }
-                }}
-                className="flex items-center gap-2 text-gray-400 hover:text-red-500 px-3 py-2 rounded-lg transition-all hover:bg-red-50"
-                title="Limpar todos os dados"
-              >
-                <Trash2 size={18} />
-                <span className="hidden md:inline font-medium text-sm">Limpar</span>
-              </button>
+              {isConfirmingClear ? (
+                <div className="flex items-center gap-2 bg-red-50 p-1 rounded-lg border border-red-100">
+                  <span className="text-xs font-bold text-red-600 px-2">Limpar tudo?</span>
+                  <button 
+                    onClick={() => {
+                      setExpenses([]);
+                      setSelectedCostCenter(null);
+                      setSelectedStatus(null);
+                      setIsConfirmingClear(false);
+                    }}
+                    className="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-md hover:bg-red-700 transition-colors"
+                  >
+                    Sim
+                  </button>
+                  <button 
+                    onClick={() => setIsConfirmingClear(false)}
+                    className="bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-md hover:bg-gray-300 transition-colors"
+                  >
+                    Não
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  onClick={() => setIsConfirmingClear(true)}
+                  className="flex items-center gap-2 text-gray-400 hover:text-red-500 px-3 py-2 rounded-lg transition-all hover:bg-red-50"
+                  title="Limpar todos os dados"
+                >
+                  <Trash2 size={18} />
+                  <span className="hidden md:inline font-medium text-sm">Limpar</span>
+                </button>
+              )}
               <button 
                 onClick={() => fileInputRef.current?.click()}
                 className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg active:scale-95"
