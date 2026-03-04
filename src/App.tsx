@@ -35,6 +35,7 @@ import * as XLSX from 'xlsx';
 import { Expense, CostCenter, CostCenterSummary } from './types';
 import { INITIAL_EXPENSES, COST_CENTER_COLORS } from './constants';
 import { cn } from './lib/utils';
+import logoCreare from './assets/Creare.jpg';
 
 export default function App() {
   const [expenses, setExpenses] = useState<Expense[]>(() => {
@@ -357,13 +358,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img 
-              src="/Creare.jpg" 
+              src={logoCreare} 
               alt="Creare Logo" 
               className="h-12 w-auto object-contain"
-              onError={(e) => {
-                // Fallback if the image is not found in the root
-                (e.target as HTMLImageElement).src = "https://picsum.photos/seed/creare-logo-fallback/400/400";
-              }}
             />
             <h1 className="text-xl font-bold tracking-tight text-gray-900">
               Gestor Financeiro
