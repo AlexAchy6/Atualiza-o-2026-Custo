@@ -357,13 +357,14 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img 
-              src="Creare.jpg" 
+              src="/logo.jpg" 
               alt="Creare Logo" 
               className="h-12 w-auto object-contain"
               onError={(e) => {
-                // Se o caminho relativo falhar, tenta o absoluto (para Vercel)
-                if (!(e.target as HTMLImageElement).src.includes('/Creare.jpg')) {
-                  (e.target as HTMLImageElement).src = "/Creare.jpg";
+                const target = e.target as HTMLImageElement;
+                // Fallback para evitar que fique o ícone de imagem quebrada
+                if (!target.src.includes('picsum')) {
+                  target.src = "https://picsum.photos/seed/creare-logo/400/100?grayscale";
                 }
               }}
             />
