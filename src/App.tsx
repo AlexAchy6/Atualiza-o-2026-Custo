@@ -33,9 +33,8 @@ import { format, parseISO, getYear } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import * as XLSX from 'xlsx';
 import { Expense, CostCenter, CostCenterSummary } from './types';
-import { INITIAL_EXPENSES, COST_CENTER_COLORS } from './constants';
+import { INITIAL_EXPENSES, COST_CENTER_COLORS, LOGO_BASE64 } from './constants';
 import { cn } from './lib/utils';
-import logoCreare from './assets/logo.jpg';
 
 export default function App() {
   const [expenses, setExpenses] = useState<Expense[]>(() => {
@@ -358,7 +357,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img 
-              src={logoCreare} 
+              src={LOGO_BASE64} 
               alt="Creare Logo" 
               className="h-12 w-auto object-contain"
             />
